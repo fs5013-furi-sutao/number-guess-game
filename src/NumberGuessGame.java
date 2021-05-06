@@ -185,13 +185,9 @@ public class NumberGuessGame {
     private static void showStartMessages(int digit, int times) {
 
         System.out.println("0 ～ 9 までの数字を組み合わせた");
-
         System.out.format("%d 桁の数字を当ててみてね。%n", digit);
-
         System.out.println();
-
         System.out.format("答えられるのは %d 回までだよ。", times);
-
         System.out.println();
     }
 
