@@ -20,6 +20,7 @@ public class NumberGuessGame {
 
     // チャレンジ回数設定
     private static final int MAX_CHALLENGE_TIMES = 10;
+    private static final int COUNT_OF_START = 1;
 
     // どれだけ離れていたら、どんな判定メッセージを表示するかの設定
     private static final int[] DISTANCE_TYPES = { 10, 50, 100, 200, };
@@ -30,19 +31,19 @@ public class NumberGuessGame {
     public static void main(String[] args) {
 
         String generatedCorrectNumStr;
-        int challengeTimesCounter = 1;
+        int challengeTimesCounter = COUNT_OF_START;
 
         generatedCorrectNumStr = generateCorrectNumStr(CORRECT_DIGIT);
 
         showCorrect(IS_DEBUG_MODE, generatedCorrectNumStr);
-
         showStartMessages(CORRECT_DIGIT, MAX_CHALLENGE_TIMES);
 
         String answerNumStr;
         boolean isCorrectInChallengeTimes = false;
 
-        while (isNotOverMaxChallengeTimes(challengeTimesCounter)) {
+        while (!isOverMaxChallengeTimes(challengeTimesCounter)) {
 
+            showTryCount(challengeTimesCounter);
             answerNumStr = recieveAnswerNumStr(challengeTimesCounter,
                     CORRECT_DIGIT);
 
@@ -147,29 +148,35 @@ public class NumberGuessGame {
 
     private static String recieveAnswerNumStr(int count, int correctDigit) {
 
-        boolean isInputValid = true;
-        String answerNumStr = "";
+        String inputtedNumStr = recieveStr();
 
-        while (!isInputValid) {
-            showTryCount(count);
+        if (isNumber(inputtedNumStr)) {
 
-            try {
-                answerNumStr = STDIN.nextLine();
-                Integer.parseInt(answerNumStr);
-                isInputValid = true;
-
-            } catch (NumberFormatException e) {
+            if (!isInputCorrectDigit(inputtedNumStr)) {
                 showMessageOfInvalidInputForNumber();
-                isInputValid = false;
-                continue;
+                return recieveAnswerNumStr(count, correctDigit);
             }
+            return inputtedNumStr;
 
-            if (!isInputCorrectDigit(answerNumStr)) {
-                showMessageOfInvalidInputForNumber();
-                isInputValid = false;
-            }
+        } else {
+            showMessageOfInvalidInputForNumber();
         }
-        return answerNumStr;
+
+        return recieveAnswerNumStr(count, correctDigit);
+    }
+
+    private static boolean isNumber(String inputtedNumStr) {
+        try {
+            Integer.parseInt(inputtedNumStr);
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private static String recieveStr() {
+        return STDIN.nextLine();
     }
 
     private static void showTryCount(int count) {
@@ -178,7 +185,7 @@ public class NumberGuessGame {
 
     private static boolean isInputCorrectDigit(String answerNumStr) {
 
-        return answerNumStr.length() == CORRECT_DIGIT;
+        return answerNumStr.length() <= CORRECT_DIGIT;
     }
 
     private static void showMessageOfInvalidInputForNumber() {
@@ -188,15 +195,14 @@ public class NumberGuessGame {
     private static void showStartMessages(int digit, int times) {
 
         System.out.println("0 ～ 9 までの数字を組み合わせた");
-        System.out.format("%d 桁の数字を当ててみてね。%n", digit);
+        System.out.format("%d 桁までの数字を当ててみてね。%n", digit);
         System.out.println();
         System.out.format("答えられるのは %d 回までだよ。", times);
         System.out.println();
     }
 
-    private static boolean isNotOverMaxChallengeTimes(
-            int challengeTimesCounter) {
+    private static boolean isOverMaxChallengeTimes(int challengeTimesCounter) {
 
-        return challengeTimesCounter <= MAX_CHALLENGE_TIMES;
+        return challengeTimesCounter > MAX_CHALLENGE_TIMES;
     }
 }
