@@ -81,9 +81,9 @@ public class NumberGuessGame {
         return generatedNumStr;
     }
 
-    private static void showCorrect(boolean isTest, String numStr) {
+    private static void showCorrect(boolean isDebugMode, String numStr) {
 
-        if (isTest)
+        if (isDebugMode)
             System.out.format("[TEST 表示]: 正解 %s %n", numStr);
     }
 
