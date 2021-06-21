@@ -164,10 +164,8 @@ public class NumberGuessGame {
             }
             return inputtedNumStr;
 
-        } else {
-            showMessageOfInvalidInputForNumber();
         }
-
+        showMessageOfInvalidInputForNumber();
         return recieveAnswerNumStr(count, correctDigit);
     }
 
