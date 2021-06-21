@@ -147,34 +147,38 @@ public class NumberGuessGame {
 
     private static String recieveAnswerNumStr(int count, int correctDigit) {
 
-        boolean isNotInputValidated = true;
+        boolean isInputValid = true;
         String answerNumStr = "";
 
-        while (isNotInputValidated) {
-            System.out.format("%d 回目: ", count);
+        while (!isInputValid) {
+            showTryCount(count);
 
             try {
                 answerNumStr = STDIN.nextLine();
                 Integer.parseInt(answerNumStr);
-                isNotInputValidated = false;
+                isInputValid = true;
 
             } catch (NumberFormatException e) {
                 showMessageOfInvalidInputForNumber();
-                isNotInputValidated = true;
+                isInputValid = false;
                 continue;
             }
 
-            if (isNotInputCorrectDigit(answerNumStr)) {
+            if (!isInputCorrectDigit(answerNumStr)) {
                 showMessageOfInvalidInputForNumber();
-                isNotInputValidated = true;
+                isInputValid = false;
             }
         }
         return answerNumStr;
     }
 
-    private static boolean isNotInputCorrectDigit(String answerNumStr) {
+    private static void showTryCount(int count) {
+        System.out.format("%d 回目: ", count);
+    }
 
-        return answerNumStr.length() != CORRECT_DIGIT;
+    private static boolean isInputCorrectDigit(String answerNumStr) {
+
+        return answerNumStr.length() == CORRECT_DIGIT;
     }
 
     private static void showMessageOfInvalidInputForNumber() {
