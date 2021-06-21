@@ -47,12 +47,11 @@ public class NumberGuessGame {
             answerNumStr = recieveAnswerNumStr(challengeTimesCounter,
                     CORRECT_DIGIT);
 
-            showJudgeAnswer(generatedCorrectNumStr, answerNumStr);
+            showJudgeBigOrSmall(generatedCorrectNumStr, answerNumStr);
 
             if (isCorrect(generatedCorrectNumStr, answerNumStr)) {
 
                 showResultOfMatchCorrect(challengeTimesCounter);
-
                 isCorrectInChallengeTimes = true;
                 break;
             }
@@ -95,7 +94,7 @@ public class NumberGuessGame {
         System.out.format("すごい！！ %d 回で当てられちゃった！", challengeTimesCounter);
     }
 
-    private static void showJudgeAnswer(String correctNumStr,
+    private static void showJudgeBigOrSmall(String correctNumStr,
             String answerNumStr) {
 
         if (isCorrect(correctNumStr, answerNumStr))
