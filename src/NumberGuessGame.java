@@ -24,8 +24,9 @@ public class NumberGuessGame {
 
     // どれだけ離れていたら、どんな判定メッセージを表示するかの設定
     private static final int[] DISTANCE_TYPES = { 10, 50, 100, 200, };
-    private static final String[] DISTANCE_TYPE_MESSAGES = { "あとほんの少し", "あと少し",
-            "それより", "まだまだ", "もっと", };
+    private static final String[] DISTANCE_TYPE_MESSAGES = {
+        "あとほんの少し", "あと少し", "それより", "まだまだ", "もっと", 
+    };
     private static final String OUT_DISTANCE_MESSAGE = "まだかなり";
     private static final String MESSAGE_OF_NUMBER_IS_TOO_SMALL = "小さい数字だよ";
     private static final String MESSAGE_OF_NUMBER_IS_TOO_BIG = "大きい数字だよ";
