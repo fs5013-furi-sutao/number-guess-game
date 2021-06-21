@@ -49,7 +49,7 @@ public class NumberGuessGame {
 
             showJudgeAnswer(generatedCorrectNumStr, answerNumStr);
 
-            if (isCorrectEqualsAnswer(generatedCorrectNumStr, answerNumStr)) {
+            if (isCorrect(generatedCorrectNumStr, answerNumStr)) {
 
                 showResultOfMatchCorrect(challengeTimesCounter);
 
@@ -98,7 +98,7 @@ public class NumberGuessGame {
     private static void showJudgeAnswer(String correctNumStr,
             String answerNumStr) {
 
-        if (isCorrectEqualsAnswer(correctNumStr, answerNumStr))
+        if (isCorrect(correctNumStr, answerNumStr))
             return;
 
         System.out.print(getHowDistance(correctNumStr, answerNumStr));
@@ -128,7 +128,7 @@ public class NumberGuessGame {
         return OUT_DISTANCE_MESSAGE;
     }
 
-    private static boolean isCorrectEqualsAnswer(String correctNumStr,
+    private static boolean isCorrect(String correctNumStr,
             String answerNumStr) {
 
         return answerNumStr.equals(correctNumStr);
