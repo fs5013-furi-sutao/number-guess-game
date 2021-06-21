@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class NumberGuessGame {
 
     // 正解を表示するか・しないかのデバッグ機能 ON/OFF 設定
-    private static final boolean IS_TEST = true;
+    private static final boolean IS_DEBUG_MODE = true;
 
     private static final Random RANDOM = new Random();
     private static final Scanner STDIN = new Scanner(System.in);
@@ -23,8 +23,8 @@ public class NumberGuessGame {
 
     // どれだけ離れていたら、どんな判定メッセージを表示するかの設定
     private static final int[] DISTANCE_TYPES = { 10, 50, 100, 200, };
-    private static final String[] DISTANCE_TYPE_MESSAGES = {
-            "あとほんの少し", "あと少し", "それより", "まだまだ", "もっと", };
+    private static final String[] DISTANCE_TYPE_MESSAGES = { "あとほんの少し", "あと少し",
+            "それより", "まだまだ", "もっと", };
     private static final String OUT_DISTANCE_MESSAGE = "まだかなり";
 
     public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class NumberGuessGame {
 
         generatedCorrectNumStr = generateCorrectNumStr(CORRECT_DIGIT);
 
-        showCorrect(IS_TEST, generatedCorrectNumStr);
+        showCorrect(IS_DEBUG_MODE, generatedCorrectNumStr);
 
         showStartMessages(CORRECT_DIGIT, MAX_CHALLENGE_TIMES);
 
@@ -43,13 +43,12 @@ public class NumberGuessGame {
 
         while (isNotOverMaxChallengeTimes(challengeTimesCounter)) {
 
-            answerNumStr = recieveAnswerNumStr(
-                    challengeTimesCounter, CORRECT_DIGIT);
+            answerNumStr = recieveAnswerNumStr(challengeTimesCounter,
+                    CORRECT_DIGIT);
 
             showJudgeAnswer(generatedCorrectNumStr, answerNumStr);
 
-            if (isCorrectEqualsAnswer(
-                    generatedCorrectNumStr, answerNumStr)) {
+            if (isCorrectEqualsAnswer(generatedCorrectNumStr, answerNumStr)) {
 
                 showResultOfMatchCorrect(challengeTimesCounter);
 
@@ -95,8 +94,8 @@ public class NumberGuessGame {
         System.out.format("すごい！！ %d 回で当てられちゃった！", challengeTimesCounter);
     }
 
-    private static void showJudgeAnswer(
-            String correctNumStr, String answerNumStr) {
+    private static void showJudgeAnswer(String correctNumStr,
+            String answerNumStr) {
 
         if (isCorrectEqualsAnswer(correctNumStr, answerNumStr))
             return;
@@ -113,8 +112,8 @@ public class NumberGuessGame {
         System.out.println();
     }
 
-    private static String getHowDistance(
-            String correctNumStr, String answerNumStr) {
+    private static String getHowDistance(String correctNumStr,
+            String answerNumStr) {
 
         int correctNum = Integer.parseInt(correctNumStr);
         int answerNum = Integer.parseInt(answerNumStr);
@@ -128,20 +127,20 @@ public class NumberGuessGame {
         return OUT_DISTANCE_MESSAGE;
     }
 
-    private static boolean isCorrectEqualsAnswer(
-            String correctNumStr, String answerNumStr) {
+    private static boolean isCorrectEqualsAnswer(String correctNumStr,
+            String answerNumStr) {
 
         return answerNumStr.equals(correctNumStr);
     }
 
-    private static boolean isCorrectBig(
-            String correctNumStr, String answerNumStr) {
+    private static boolean isCorrectBig(String correctNumStr,
+            String answerNumStr) {
 
         return Integer.parseInt(answerNumStr) < Integer.parseInt(correctNumStr);
     }
 
-    private static boolean isCorrectSmall(
-            String correctNumStr, String answerNumStr) {
+    private static boolean isCorrectSmall(String correctNumStr,
+            String answerNumStr) {
 
         return Integer.parseInt(answerNumStr) > Integer.parseInt(correctNumStr);
     }
