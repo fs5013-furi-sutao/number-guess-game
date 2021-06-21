@@ -27,6 +27,8 @@ public class NumberGuessGame {
     private static final String[] DISTANCE_TYPE_MESSAGES = { "あとほんの少し", "あと少し",
             "それより", "まだまだ", "もっと", };
     private static final String OUT_DISTANCE_MESSAGE = "まだかなり";
+    private static final String MESSAGE_OF_NUMBER_IS_TOO_SMALL = "小さい数字だよ";
+    private static final String MESSAGE_OF_NUMBER_IS_TOO_BIG = "大きい数字だよ";
 
     public static void main(String[] args) {
 
@@ -100,24 +102,22 @@ public class NumberGuessGame {
         if (isCorrect(correctNumStr, answerNumStr))
             return;
 
-        System.out.print(getHowDistance(correctNumStr, answerNumStr));
+        System.out.print(getMessageOfHowDistance(correctNumStr, answerNumStr));
 
         if (isCorrectBig(correctNumStr, answerNumStr)) {
-            System.out.println("大きい数字だよ");
+            System.out.println(MESSAGE_OF_NUMBER_IS_TOO_BIG);
         }
 
         if (isCorrectSmall(correctNumStr, answerNumStr)) {
-            System.out.println("小さい数字だよ");
+            System.out.println(MESSAGE_OF_NUMBER_IS_TOO_SMALL);
         }
         System.out.println();
     }
 
-    private static String getHowDistance(String correctNumStr,
+    private static String getMessageOfHowDistance(String correctNumStr,
             String answerNumStr) {
 
-        int correctNum = Integer.parseInt(correctNumStr);
-        int answerNum = Integer.parseInt(answerNumStr);
-        int distance = Math.abs(correctNum - answerNum);
+        int distance = calcDistance(correctNumStr, answerNumStr);
 
         for (int i = 0; i < DISTANCE_TYPES.length; i++) {
             if (distance <= DISTANCE_TYPES[i]) {
@@ -125,6 +125,12 @@ public class NumberGuessGame {
             }
         }
         return OUT_DISTANCE_MESSAGE;
+    }
+
+    private static int calcDistance(String correctNumStr, String answerNumStr) {
+        int correctNum = Integer.parseInt(correctNumStr);
+        int answerNum = Integer.parseInt(answerNumStr);
+        return Math.abs(correctNum - answerNum);
     }
 
     private static boolean isCorrect(String correctNumStr,
